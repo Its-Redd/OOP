@@ -28,7 +28,14 @@ namespace Oop.Encapsulation
         public string Code
         {
             get { return code; }
-            set { code = value; }
+            set
+            {
+                if (!Regex.IsMatch(value, @"^[A-Z]{3}-[1-9][0-9]{2}$"))
+                {
+                    throw new ArgumentException("Code must be in the format of three uppercase letters, a hyphen, and three numbers where the first number cannot be 0. \n Example: CJG-678");
+                }
+                code = value;
+            }
         }
 
         private string teacher;

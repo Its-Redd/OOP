@@ -11,7 +11,7 @@ namespace Oop.Encapsulation
             try
             {
                 subject.Name = "Math";
-                subject.Code = "CJG-678";
+                subject.Code = "Math-678";
                 subject.Teacher = "John Cena";
                 subject.EctsPoints = 5;
                 subject.StartDate = 2021;
