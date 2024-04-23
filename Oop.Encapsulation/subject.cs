@@ -42,35 +42,65 @@ namespace Oop.Encapsulation
         public string Teacher
         {
             get { return teacher; }
-            set { teacher = value; }
+            set {
+                if(string.IsNullOrWhiteSpace(value) || Regex.IsMatch(value, @"\d"))
+                {
+                    throw new ArgumentException("Teacher name cannot be a number, null or empty");
+                }
+                teacher = value;
+            }
         }
+
 
         private int ectsPoints;
         public int EctsPoints
         {
         get { return ectsPoints; }
-        set { ectsPoints = value; }
+        set {
+                if (value < 1 || value > 10)
+                {
+                    throw new ArgumentException("ECTS points must be a number between 1 and 10");
+                }
+                ectsPoints = value; 
+            }
         }
 
-        private int startDate;
-        public int StartDate
+        private DateOnly startDate;
+        public DateOnly StartDate
         {
             get { return startDate; }
-            set { startDate = value; }
+            set { 
+                if (value.Year < 2021)
+                {
+                    throw new ArgumentException("Start date must be after 2021");
+                }
+                startDate = value;
+            }
         }
 
-        private DateTime endDate;
-        public DateTime EndDate
+
+        private DateOnly endDate;
+        public DateOnly EndDate
         {
             get { return endDate; }
-            set { endDate = value; }
+            set {
+                if (value.Year < startDate.Year)
+                {
+                    throw new ArgumentException("The end date must be after the start date");
+                }
+                endDate = value; }
         }
 
-        private DateTime examDate;
-        public DateTime ExamDate
+        private DateOnly examDate;
+        public DateOnly ExamDate
         {
             get { return examDate; }
-            set { examDate = value; }
+            set {
+                if (value.Year < startDate.Year || value.Year > endDate.Year)
+                {
+                    throw new ArgumentException("The exam date must be after the start date and before the end date");
+                }
+                examDate = value; }
         }
     }
 }
